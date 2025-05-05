@@ -7,16 +7,34 @@ export const FavoritesListContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[200]};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
-  text-align: center;
-
-/*   #pokemon-lista li:hover {
-      transform: scale(1.05); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const FavoritesContainer = styled.div`
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  padding: 16px;
+
+  span {
+    padding: 4px 8px;
+    border-radius: 12px;
+    margin-right: 8px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+
+    button {
+      margin-left: 8px;
+      background: transparent;
+      border: none;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
 `;

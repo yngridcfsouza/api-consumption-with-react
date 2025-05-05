@@ -5,18 +5,18 @@ import { Input } from "../Input";
 
 import pikachu from '../../assets/images/pikachu-img-sem-fundo.png';
 
-export default function SearchBar({ onSelectPokemon }) {
+export default function SearchBar({ setSpecificPokemon }) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  function handleChangeSearchTerm() {
+  const handleChangeSearchTerm = () => {
     if (searchTerm.trim()) {
-      onSelectPokemon(searchTerm.toLowerCase());
+      setSpecificPokemon(searchTerm.toLowerCase());
     }
-  }
+  };
 
   return (
     <Container>
-      <img src={pikachu} alt="Pikachu"/>
+      <img src={pikachu} alt="Pikachu" />
       <SearchContainer>
         <Input
           value={searchTerm}
@@ -26,7 +26,9 @@ export default function SearchBar({ onSelectPokemon }) {
         <button
           type="submit"
           onClick={handleChangeSearchTerm}
-        >Buscar</button>
+        >
+          Buscar
+        </button>
       </SearchContainer>
     </Container>
   );

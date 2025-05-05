@@ -28,8 +28,8 @@ export const PokemonListContainer = styled.div`
 `;
 
 export const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: center;
   gap: 16px;
@@ -39,10 +39,15 @@ export const CardsContainer = styled.div`
     min-width: 200px;
     min-height: 100%;
     padding: 16px;
-    background: ${({ theme }) => theme.colors.header};
+    background-color: ${({ theme }) => theme.colors.button.main};
+    border: 2px solid ${({ theme }) => theme.colors.button.border};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
-    cursor: pointer;
+    transition: transform 0.1s ease-in;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 `;
 
@@ -61,9 +66,24 @@ export const PokemonDetailsContainer = styled.div`
   p {
     text-align: center;
   }
+
+  button {
+    margin: 16px;
+    padding: 8px;
+    background-color: ${({ theme }) => theme.colors.button.main};
+    border: 2px solid ${({ theme }) => theme.colors.button.border};
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    transition: transform 0.1s ease-in;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 `;
 
 export const DetailsContainer = styled.div`
+  max-width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;

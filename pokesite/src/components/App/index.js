@@ -9,20 +9,23 @@ import { Container, FooterContainer } from "./styles";
 import SearchBar from "../SearchBar";
 import MainSection from '../MainSection';
 
-function App() {
-  const [specificPokemon, setSpecificPokemon] = useState(null);
+import ToastContainer from "../Toast/ToastContainer";
 
-  // Usando a callback do searchTerm da SearchBar para mandar para o MainSection
-  function handleSearchSpecificPokemon(name) {
-    setSpecificPokemon(name);
-  }
+function App() {
+  const [specificPokemon, setSpecificPokemon] = useState('');
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles />
+      <ToastContainer />
       <Container>
-        <SearchBar onSelectPokemon={handleSearchSpecificPokemon}/>
-        <MainSection specificPokemon={specificPokemon}/>
+        <SearchBar
+          setSpecificPokemon={setSpecificPokemon}
+        />
+        <MainSection
+          specificPokemon={specificPokemon}
+          setSpecificPokemon={setSpecificPokemon}
+        />
         <FooterContainer>
           <p>Desenvolvido por Yngrid F. S.</p>
         </FooterContainer>
