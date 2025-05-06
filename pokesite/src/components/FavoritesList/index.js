@@ -1,8 +1,18 @@
 import { FavoritesListContainer, FavoritesContainer } from "./styles";
 
-import trash from "../../assets/images/trash.svg";
+import trash from "../../assets/images/icons/trash.svg";
+
+import toast from "../../utils/toast";
 
 export default function FavoritesList({ favorites, setFavorites }) {
+  function handleRemoveFavorite(favorite) {
+    const updated = favorites.filter((name) => name !== favorite);
+    setFavorites(updated);
+    toast({
+      type: 'default',
+      text: 'Favorito removido!'
+    })
+  }
   return(
     <FavoritesListContainer>
       {favorites.length === 0 ? (
@@ -16,10 +26,7 @@ export default function FavoritesList({ favorites, setFavorites }) {
             <span key={favorite}>
               {favorite.toUpperCase()}
               <button
-                onClick={() => {
-                  const updated = favorites.filter((name) => name !== favorite);
-                  setFavorites(updated);
-                }}
+                onClick={() => handleRemoveFavorite(favorite)}
               >
                 <img src={trash} alt="Delete"/>
               </button>

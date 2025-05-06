@@ -17,8 +17,8 @@ function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles />
-      <ToastContainer />
       <Container>
+        <ToastContainer />
         <SearchBar
           setSpecificPokemon={setSpecificPokemon}
         />

@@ -12,7 +12,10 @@ class PokemonService {
   }
 
   async getPokemonByName(name) {
-    if (!name) return null;
+    if (!name) {
+      return console.error('400 - Bad request');
+    }
+
     return(
       this.httpClient.get(`/pokemon/${name.toLowerCase()}`)
     );

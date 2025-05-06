@@ -1,6 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 import PokemonService from '../../services/PokemonService';
+import toast from '../../utils/toast';
 
 import {
   MainSectionContainer,
@@ -19,7 +20,6 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
   const [pokemonList, setPokemonList] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [pokemonDetails, setPokemonDetails] = useState(null);
-  const [allPokemonNames, setAllPokemonNames] = useState([]);
   const [page, setPage] = useState(0);
   const [hasNextPage, setHasNextPage] = useState(false);
 
@@ -37,7 +37,7 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
   const limit = 10;
   const offset = page * limit;
 
-  const filteredPokemon = useMemo(() => {
+/*   const filteredPokemon = useMemo(() => {
     if (!specificPokemon) return null;
 
     const filteredList = allPokemonNames.filter((pokemon) => (
@@ -46,10 +46,8 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
 
     if (filteredList.length > 0) {
       return filteredList[0].name;
-    } else {
-      return null;
     }
-  }, [allPokemonNames, specificPokemon]);
+  }, [allPokemonNames, specificPokemon]); */
 
   useEffect(() => {
     async function loadPokemon() {
@@ -64,7 +62,7 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
     loadPokemon();
   }, [offset, page]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     async function loadAllPokemonNames() {
       try {
         const pokemonData = await PokemonService.listPokemon({ offset: 0, limit: 1400 });
@@ -75,27 +73,43 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
     }
 
     loadAllPokemonNames();
-  }, []);
+  }, []); */
 
   useEffect(() => {
-    const pokemonToFetch = (filteredPokemon || selectedPokemon);
-    if(!pokemonToFetch) return;
 
     async function loadPokemonDetails() {
+      const pokemonToFetch = (specificPokemon?.toLowerCase() || selectedPokemon?.toLowerCase());
+      if (!pokemonToFetch) {
+        setPokemonDetails(null);
+        return;
+      }
+      setPokemonDetails(null);
+      setSelectedPokemon(null);
       setIsLoading(true);
-      try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
 
-        const pokemonData = await PokemonService.getPokemonByName(pokemonToFetch.toLowerCase());
+      try {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const pokemonData = await PokemonService.getPokemonByName(pokemonToFetch);
         setPokemonDetails(pokemonData);
+
+        toast({
+          type: 'success',
+          text: 'Pokémon encontrado!',
+        });
       } catch (error) {
-        console.error('Erro ao carregar dados', error);
+          setPokemonDetails(null);
+          toast({
+            type: 'danger',
+            text: 'Pokémon não encontrado!',
+          });
       } finally {
         setIsLoading(false);
       }
     }
+
     loadPokemonDetails();
-  }, [filteredPokemon, selectedPokemon, specificPokemon]);
+  }, [selectedPokemon, specificPokemon]);
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -113,8 +127,15 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
         ...prevState,
         pokemonDetails.name
       ]);
+      toast({
+        type: 'success',
+        text: 'Adicionado aos favoritos!'
+      });
     } else {
-      return console.log('Este pokemon já está em favoritos!');
+      toast({
+        type: 'danger',
+        text: 'Este Pokemon já está em seus favoritos!'
+      });
     }
   }
 

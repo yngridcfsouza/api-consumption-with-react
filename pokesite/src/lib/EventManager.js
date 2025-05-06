@@ -25,5 +25,3 @@ export default class EventManager {
 const toastEventManager = new EventManager();
 
 toastEventManager.on('addtoast', () => {});
-
-console.log(toastEventManager);

@@ -7,6 +7,11 @@ export default {
       200: '#f2f2f2',
       100: '#f9f9f9',
     },
+    toasts: {
+      default: '#FFA000',
+      success: '#28a745',
+      danger: '#f44336',
+    },
     background: '#fff',
     header: ' #ffcc33',
     button: {

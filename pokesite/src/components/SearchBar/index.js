@@ -5,12 +5,19 @@ import { Input } from "../Input";
 
 import pikachu from '../../assets/images/pikachu-img-sem-fundo.png';
 
+import toast from "../../utils/toast";
+
 export default function SearchBar({ setSpecificPokemon }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChangeSearchTerm = () => {
     if (searchTerm.trim()) {
       setSpecificPokemon(searchTerm.toLowerCase());
+    } else {
+      toast({
+        type: 'default',
+        text: 'Digite um nome válido!',
+      });
     }
   };
 

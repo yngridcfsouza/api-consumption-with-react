@@ -7,10 +7,11 @@ class HttpClient {
     const response = await fetch(`${this.baseURL}${path}`);
     const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(data?.message || 'Erro na requisição GET');
+    if (response.ok) {
+      return data;
     }
-    return data;
+
+    throw new Error(response);
   }
 }
 
