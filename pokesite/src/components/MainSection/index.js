@@ -37,18 +37,6 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
   const limit = 10;
   const offset = page * limit;
 
-/*   const filteredPokemon = useMemo(() => {
-    if (!specificPokemon) return null;
-
-    const filteredList = allPokemonNames.filter((pokemon) => (
-      pokemon.name.toLowerCase().includes(specificPokemon.toLowerCase()))
-    );
-
-    if (filteredList.length > 0) {
-      return filteredList[0].name;
-    }
-  }, [allPokemonNames, specificPokemon]); */
-
   useEffect(() => {
     async function loadPokemon() {
       try {
@@ -61,19 +49,6 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
     }
     loadPokemon();
   }, [offset, page]);
-
-/*   useEffect(() => {
-    async function loadAllPokemonNames() {
-      try {
-        const pokemonData = await PokemonService.listPokemon({ offset: 0, limit: 1400 });
-        setAllPokemonNames(pokemonData.results);
-      } catch (error) {
-        console.error("Erro ao carregar todos os nomes", error);
-      }
-    }
-
-    loadAllPokemonNames();
-  }, []); */
 
   useEffect(() => {
 
@@ -204,3 +179,29 @@ export default function MainSection({ specificPokemon, setSpecificPokemon }) {
 
   );
 }
+
+/*   useEffect(() => {
+
+    async function loadAllPokemonNames() {
+      try {
+        const pokemonData = await PokemonService.listPokemon({ offset: 0, limit: 1400 });
+        setAllPokemonNames(pokemonData.results);
+      } catch (error) {
+        console.error("Erro ao carregar todos os nomes", error);
+      }
+    }
+
+    loadAllPokemonNames();
+  }, []); */
+
+  /*   const filteredPokemon = useMemo(() => {
+    if (!specificPokemon) return null;
+
+    const filteredList = allPokemonNames.filter((pokemon) => (
+      pokemon.name.toLowerCase().includes(specificPokemon.toLowerCase()))
+    );
+
+    if (filteredList.length > 0) {
+      return filteredList[0].name;
+    }
+  }, [allPokemonNames, specificPokemon]); */
